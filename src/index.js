@@ -7,6 +7,8 @@ import rootReducer from "./reducers";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import Header from "./components/Header";
 
 const store = createStore(
   rootReducer,
@@ -15,7 +17,12 @@ const store = createStore(
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <BrowserRouter>
+      <Header />
+      <Switch>
+        <Route path="/" component={App} exact={true} />
+      </Switch>
+    </BrowserRouter>
   </Provider>,
   document.getElementById("root")
 );

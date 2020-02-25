@@ -1,37 +1,35 @@
-import React, { useEffect, useState, Fragment, useLayoutEffect } from "react";
-import Header from "./Header";
+import React, { useEffect, useState, Fragment } from "react";
+
 import Table from "./dashboard/Table";
-import { getLatest } from "../actions/currencyAction";
+import { getLatest, getCurrent, getPrev } from "../actions/currencyAction";
 import { useDispatch, useSelector } from "react-redux";
 
 function App() {
-  const latest = useSelector(state => state.latest);
+  const latestDate = useSelector(state => state.latestDate);
+  const current = useSelector(state => state.current);
   const dispatch = useDispatch();
+  const baseCurrencyDate = useSelector(state => state.prev.date);
 
   useEffect(() => {
-    getLatest();
-  }, []);
+    dispatch(getLatest());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getCurrent(latestDate));
+  }, [latestDate, dispatch]);
+
+  useEffect(() => {
+    dispatch(getPrev(latestDate, baseCurrencyDate));
+  }, [latestDate, dispatch, baseCurrencyDate]);
 
   return (
     <Fragment>
-      <Header />
-      {<Table latest={latest} />}
+      {/* {latest.rates &&
+        typeof latest.rates === "object" &&
+        Object.keys(latest.rates).map(k => (
+          <Table country={k} rate={latest.rates[k]} />
+        ))} */}
     </Fragment>
   );
-
-  //   return (
-  //     <div className="App">
-  //       <Header />
-  //       {log != null &&
-  //         Object.keys(log.log.rates).map(content => (
-  //           <div>
-  //             {content}
-  //             {log.log.rates[content]}
-  //             {console.log(log)}
-  //           </div>
-  //         ))}
-  //     </div>
-  //   );
-  // }
 }
 export default App;

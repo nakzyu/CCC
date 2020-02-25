@@ -1,8 +1,12 @@
 import { combineReducers } from "redux";
-import latestReducer from "./latestReducer";
+import latestDateReducer from "./latestDateReducer";
+import CurrentCurrencyReducer from "./CurrentCurrencyReducer";
+import PrevCurrencyReducer from "./PrevCurrencyReducer";
 
 const rootReducer = combineReducers({
-  latest: latestReducer
+  latestDate: latestDateReducer,
+  current: CurrentCurrencyReducer,
+  prev: PrevCurrencyReducer
 });
 
 export default rootReducer;

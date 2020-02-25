@@ -1,7 +1,12 @@
 import React from "react";
 
 function Table(props) {
-  return <div>{console.log(props)}</div>;
+  return (
+    <div>
+      {props.country}
+      {props.rate}
+    </div>
+  );
 }
 
 export default Table;
