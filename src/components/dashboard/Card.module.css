@@ -1,0 +1,13 @@
+.card {
+  display: flex;
+  font-size: 2rem;
+  align-content: center;
+  justify-content: center;
+  position: relative;
+}
+.country,
+.rate,
+.percent {
+  margin: 0.5rem;
+  display: flex;
+}
