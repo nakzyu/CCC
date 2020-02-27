@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "./dashboard/Card";
 import Selector from "./dashboard/Selector";
 import styles from "./App.module.css";
@@ -7,27 +7,37 @@ import { getLatest, getCurrent, getPrev } from "../actions/currencyAction";
 import { useDispatch, useSelector } from "react-redux";
 
 function App() {
-  const latestDate = useSelector(state => state.latestDate);
+  const latestDate = useSelector(state => state.latest.date);
   const current = useSelector(state => state.current);
   const prev = useSelector(state => state.prev);
+  const bc = useSelector(state => state.base);
+
   const dispatch = useDispatch();
-  const baseCurrencyDate = useSelector(state => state.prev.date);
 
   useEffect(() => {
     dispatch(getLatest());
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(getCurrent(latestDate));
-  }, [latestDate, dispatch]);
+    if (bc.length) {
+      dispatch(getCurrent(latestDate, bc));
+    } else {
+      dispatch(getCurrent(latestDate, "USD"));
+    }
+  }, [latestDate, dispatch, bc]);
 
   useEffect(() => {
-    dispatch(getPrev(latestDate));
-  }, [latestDate, dispatch]);
+    if (bc.length) {
+      dispatch(getPrev(latestDate, bc));
+    } else {
+      dispatch(getPrev(latestDate, "USD"));
+    }
+  }, [latestDate, dispatch, bc]);
 
   return (
     <div className={styles.app}>
-      <Selector />
+      <button>dd</button>
+      <Selector key={current.base} />
       {current.rates &&
         typeof current.rates === "object" &&
         prev.rates &&
@@ -36,8 +46,8 @@ function App() {
           <Card
             key={k}
             className={styles.cards}
-            country={k}
-            rate={current.rates[k]}
+            base={k}
+            rate={current.rates[k].toFixed(3)}
             //증감률
             percent={(
               ((current.rates[k] - prev.rates[k]) / current.rates[k]) *

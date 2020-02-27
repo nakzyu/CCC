@@ -1,9 +1,6 @@
 .card {
   display: flex;
   font-size: 2rem;
-  align-content: center;
-  justify-content: center;
-  position: relative;
 }
 .country,
 .rate,

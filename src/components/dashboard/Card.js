@@ -1,11 +1,16 @@
-import React, { Fragment } from "react";
+import React from "react";
 import styles from "./Card.module.css";
+import { useDispatch } from "react-redux";
+import { getBase } from "../../actions/currencyAction";
 
 function Card(props) {
+  const dispatch = useDispatch();
+  const boundBase = text => dispatch(getBase(text));
+
   return (
-    <div className={styles.card}>
+    <div className={styles.card} onClick={() => boundBase(props.base)}>
       <img
-        src={require("../../img/" + props.country + ".png")}
+        src={require("../../img/" + props.base + ".png")}
         alt="flag"
         style={{
           width: "4rem",
@@ -16,7 +21,7 @@ function Card(props) {
         }}
       />
 
-      <div className={styles.country}>{props.country}</div>
+      <div className={styles.base}>{props.base}</div>
       <div className={styles.rate}>{props.rate}.</div>
       <div className={styles.percent}>{props.percent}</div>
       {props.percent >= 0 ? (
