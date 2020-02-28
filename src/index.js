@@ -9,6 +9,7 @@ import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Header from "./components/Header";
+import Info from "./components/info/Info";
 
 const store = createStore(
   rootReducer,
@@ -21,6 +22,7 @@ ReactDOM.render(
       <Header />
       <Switch>
         <Route path="/" component={App} exact={true} />
+        <Route path="/info" component={Info} exact={true} />
       </Switch>
     </BrowserRouter>
   </Provider>,

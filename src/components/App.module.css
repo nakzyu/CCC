@@ -1,9 +1,45 @@
 .app {
-  border: 1px solid black;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  display: grid;
   width: 70vw;
   margin: auto;
-  overflow: auto;
+}
+
+.inputBar {
+  display: flex;
+  font-size: 3rem;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background-color: rgba(73, 79, 89);
+  border-radius: 1%;
+  position: sticky;
+  top: 0;
+  color: white;
+}
+
+.inputArea {
+  font-size: 2rem;
+  width: 25rem;
+  margin: 1rem;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.footer {
+  font-size: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+@media screen and (max-width: 600px) {
+  .app {
+    width: 100vw;
+  }
 }

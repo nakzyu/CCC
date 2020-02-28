@@ -2,10 +2,20 @@ import React from "react";
 import styles from "./Card.module.css";
 import { useDispatch } from "react-redux";
 import { getBase } from "../../actions/currencyAction";
+import { currencyTable } from "./currencyTable";
 
 function Card(props) {
   const dispatch = useDispatch();
   const boundBase = text => dispatch(getBase(text));
+
+  const checkUpDown = param => {
+    if (param > 0) {
+      return <div className={`${styles.plus} ${styles.percent}`}>+{param}</div>;
+    } else if (param < 0) {
+      return <div className={`${styles.minus} ${styles.percent}`}>{param}</div>;
+    } else
+      return <div className={`${styles.equal} ${styles.percent}`}>{param}</div>;
+  };
 
   return (
     <div className={styles.card} onClick={() => boundBase(props.base)}>
@@ -13,36 +23,18 @@ function Card(props) {
         src={require("../../img/" + props.base + ".png")}
         alt="flag"
         style={{
-          width: "4rem",
-          height: "4rem",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center"
+          width: "6rem",
+          height: "6rem"
         }}
       />
 
-      <div className={styles.base}>{props.base}</div>
-      <div className={styles.rate}>{props.rate}.</div>
-      <div className={styles.percent}>{props.percent}</div>
-      {props.percent >= 0 ? (
-        <img
-          src={require("../../img/up-arrow.png")}
-          alt="up-arrow"
-          style={{
-            width: "1rem",
-            height: "1rem"
-          }}
-        />
-      ) : (
-        <img
-          src={require("../../img/down-arrow.png")}
-          alt="down-arrow"
-          style={{
-            width: "1rem",
-            height: "1rem"
-          }}
-        />
-      )}
+      <div className={styles.base}>{currencyTable[props.base]}</div>
+
+      <div className={styles.rate}>
+        {props.rate} {props.base}
+      </div>
+
+      {checkUpDown(props.percent)}
     </div>
   );
 }
