@@ -1,6 +1,6 @@
+## Comfortable Currency Converter
 
+Comfortable Currency Converter is a wep-app for currency converting.
 
-## Live demo
+## Demo
 https://cccc-ca23a.web.app/
-
-
