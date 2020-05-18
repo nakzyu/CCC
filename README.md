@@ -18,3 +18,4 @@ Comfortable Currency Converter is a wep-app for currency converting.
 
 - React
 - Redux
+- Firebase
